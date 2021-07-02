@@ -1,0 +1,7 @@
+X:1
+T:Testing Do Re Mi Conversion
+M:2/2
+L:1/8
+Q:1/2=80 "BPM=80"
+K:Ddor
+D{ED}>C"Do" D>D"Ré" F2"Fa" F>-G"Sol" | A>G B>G A2"La" (A>B"Si" | c)>d- c>B G2 G2- | G>B- d>A E2"Mi" F2 |

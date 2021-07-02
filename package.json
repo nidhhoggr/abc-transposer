@@ -1,0 +1,22 @@
+{
+  "name": "abc-transposer",
+  "version": "1.0.0",
+  "description": "Transposer of ABC format. Modernized from Jens Wollschläger's version",
+  "author": "Joseph M. Persie",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nidhhoggr/abc-transposer.git"
+  },
+  "keywords": [
+    "ABC"
+  ],
+  "homepage": "https://github.com/nidhhoggr/abc-transposer",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "dependencies": {
+    "mocha": "^9.0.1"
+  }
+}

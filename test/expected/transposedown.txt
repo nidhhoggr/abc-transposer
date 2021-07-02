@@ -1,0 +1,15 @@
+%%abc-charset utf-8
+X:1
+T:Schottis från Jämtland
+R:schottis
+C:Trad. efter Lasse Sorlin
+Z:Bart Brashers, Apr 2000, bart.brashers@nyckelharpa.org
+F: https://www.youtube.com/watch?v=DHbu8j0Wie8
+M:2/2
+L:1/8
+Q:1/2=80 "BPM=80"
+K:Ddor
+D{ED}>C D>E F2 F>-G | A>G B>G A2 (A>B | c)>d- c>B G2 G2- | G>B- d>A F2 F2 |
+D{ED}>C D>E F2 F>-G | A>G B>G A2 (A>B | c)>d- c>B G2 E>C | D2 D2 D4 :|
+|: d>e d>B- c>d- c>A- | B>c- B>G A2 A2"A"  | D>C D>E F2 F>-G | A>G B>G A2 ((3ABc |
+ d)>e- d>B- c>d- c>A- | B>c- B>G A2 A2"A"  | D>C D>E- F>G- F>D| E2- C2 D4 :|
