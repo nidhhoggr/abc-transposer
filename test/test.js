@@ -70,7 +70,7 @@ describe('when trasposing up', () => {
   it('Should convert them correctly', () => {
     const expected = fs.readFileSync('./test/expected/transposeup.txt', 'utf8');
     const actual = at.transposeUp({toProcess});
-    assert(expected.toString() == actual);
+    assert(expected.toString() == actual, {expected: expected.toString(), actual});
   });
 });
 
@@ -80,7 +80,51 @@ describe('when trasposing down', () => {
   it('Should convert them correctly', () => {
     const expected = fs.readFileSync('./test/expected/transposedown.txt', 'utf8');
     const actual = at.transposeDown({toProcess});
-    assert(expected.toString() == actual);
+    assert(expected.toString() == actual, JSON.stringify({expected: expected.toString(), actual}));
+  });
+});
+
+describe('when transposing keys', () => {
+  const toProcess = `X:1
+T:Testing Transposition
+M:2/2
+L:1/8
+Q:1/2=80 "BPM=80"
+K: Ador additionalflag=1
+`;
+
+  it('key should be correct with additonal params and rollup', () => {
+  const expected = `X:1
+T:Testing Transposition
+M:2/2
+L:1/8
+Q:1/2=80 "BPM=80"
+K: Gdor additionalflag=1
+`;
+
+  const expected2 = `X:1
+T:Testing Transposition
+M:2/2
+L:1/8
+Q:1/2=80 "BPM=80"
+K: Fdor additionalflag=1
+`;
+
+    const actual = at.transposeDown({toProcess});
+    assert(expected.toString() == actual, JSON.stringify({expected: expected.toString(), actual}));
+    describe('when transposing key back up', () => {
+      it('key should be correct and rolldown', () => {
+        const actual2 = at.transposeUp({toProcess: expected});
+        assert(actual2 == toProcess);
+      });
+    });
+    describe('when transposing key down aagin', () => {
+      it('key should be correct', () => {
+        const actual2 = at.transposeDown({toProcess: expected});
+        assert(actual2 == expected2, JSON.stringify({expected: expected2.toString(), actual: actual2}));
+      });
+    });
+
   });
 });
 

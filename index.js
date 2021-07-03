@@ -11,6 +11,8 @@ const doReMiMapping = {
   "H": "Si",
 }
 
+const possibleKeys = ["A","B","C","D","E","F","G"];
+
 module.exports = {
   isMelody,
   toNoteNames,
@@ -30,6 +32,11 @@ function objectFlip(obj) {
     ret[obj[key]] = key;
   });
   return ret;
+}
+
+function setCharAt(str,index,chr) {
+  if(index > str.length-1) return str;
+  return str.substring(0,index) + chr + str.substring(index+1);
 }
 
 function isMelody({line, including}) {
@@ -132,38 +139,15 @@ function transposeUp({toProcess}) {
     lines[i] = unescape(lines[i]);
     const prefix = lines[i].substr(0,2);
     if (prefix == "K:") {
-      const spaceDelimited = lines[i].split(" "); /* weil manchmal Leerzeichen nachm k */
-      const sindweg = spaceDelimited.join("");
-      const currentSeries = sindweg.split(""); /* den dritten ersetzen durch aktuellen Ton */
-      if(currentSeries[2] == "C") {
-        currentSeries[2] = "D";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "D") {
-        currentSeries[2] = "E";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "E") {
-        currentSeries[2] = "F";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "F") {
-        currentSeries[2] = "G";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "G") {
-        currentSeries[2] = "A";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "A") {
-        currentSeries[2] = "B";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "B") {
-        currentSeries[2] = "C";
-        lines[i] = currentSeries.join("");
-      }
-      else {// nur für den Fall, falls korrupt
+      let j = 2;
+      while(j <= lines[i].length) {
+        const character = lines[i].charAt(j)
+        if (possibleKeys.includes(character)) {
+          const charCode = character.charCodeAt(0);
+          lines[i] = setCharAt(lines[i], j, String.fromCharCode((charCode > 70) ? 65 : charCode + 1));
+          break;
+        }
+        j++;
       }
     } 
     else if (isMelody({line: lines[i]})) {// hier die Melodieabschnitte bearbeiten
@@ -278,38 +262,16 @@ function transposeDown({toProcess}) {
     lines[i] = unescape(lines[i]);
     const prefix = lines[i].substr(0,2);
     if (prefix == "K:") {
-      const spaceDelimited = lines[i].split(" "); /* weil manchmal Leerzeichen nachm k */
-      const sindweg = spaceDelimited.join("");
-      const currentSeries = sindweg.split(""); /* den dritten ersetzen durch aktuellen Ton */
-      if(currentSeries[2] == "C") {
-        currentSeries[2] = "B";
-        lines[i] = currentSeries.join("");
+      let j = 2;
+      while(j <= lines[i].length) {
+        const character = lines[i].charAt(j)
+        if (possibleKeys.includes(character)) {
+          const charCode = character.charCodeAt(0);
+          lines[i] = setCharAt(lines[i], j, String.fromCharCode((charCode == 65) ? 71 : charCode - 1));
+          break;
+        }
+        j++;
       }
-      else if(currentSeries[2] == "D") {
-        currentSeries[2] = "C";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "E") {
-        currentSeries[2] = "D";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "F") {
-        currentSeries[2] = "E";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "G") {
-        currentSeries[2] = "F";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "A") {
-        currentSeries[2] = "G";
-        lines[i] = currentSeries.join("");
-      }
-      else if(currentSeries[2] == "B") {
-        currentSeries[2] = "A";
-        lines[i] = currentSeries.join("");
-      }
-      else {}//nur für den Fall, falls korrupt
     }
     else if (isMelody({line: lines[i]})) {/* hier die Melodieabschnitte bearbeiten */
       const derarray = lines[i].split("");
